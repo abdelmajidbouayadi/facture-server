@@ -1,41 +1,42 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entity/product.model';
 
 @Injectable()
 export class productsService {
-  private products: Product[] = [];
-
-  saveProduct(createProductDto: CreateProductDto) {
-    const product = new Product(
-      this.products.length,
-      createProductDto.title,
-      createProductDto.description,
-      createProductDto.price,
-    );
-
-    this.products.push(product);
-    return product.id;
+  constructor(
+    @InjectModel(Product.name) private productModel: Model<Product>,
+  ) {}
+  async saveProduct(createProductDto: CreateProductDto): Promise<Product> {
+    const product = new this.productModel(createProductDto);
+    return product.save();
   }
 
-  getAllProducts() {
-    return [...this.products];
+  async getAllProducts(): Promise<Product[]> {
+    return this.productModel.find().exec();
   }
 
-  getProductById(id: number) {
-    const product = this.products.find((product) => product.id === id);
+  async getProductById(id: string) {
+    const product = await this.productModel.findById(id).exec();
     if (!product) throw new NotFoundException('product not found');
     return product;
   }
-  updateProduct(id: number, updateProductDto: UpdateProductDto) {
-    const product = this.products.find((product) => product.id === id);
+
+  async updateProduct(id: string, updateProductDto: UpdateProductDto) {
+    const product = await this.productModel
+      .findByIdAndUpdate(id, updateProductDto, { new: true })
+      .exec();
     if (!product) throw new NotFoundException('not found product');
 
-    if (updateProductDto.description)
-      product.description = updateProductDto.description;
-    if (updateProductDto.price) product.price = updateProductDto.price;
-    if (updateProductDto.title) product.title = updateProductDto.title;
     return product;
+  }
+
+  async deleteProductById(id: string) {
+    const product = await this.productModel.findById(id).exec();
+    if (!product) throw new NotFoundException('Product not found');
+    return product.remove();
   }
 }
