@@ -8,7 +8,11 @@ export class Product extends Document {
   @Prop()
   description: string;
   @Prop()
-  price: number;
+  sellingPrice: number;
+  @Prop()
+  costPrice: number;
+  @Prop()
+  barcode: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
