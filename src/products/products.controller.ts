@@ -12,7 +12,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entity/product.model';
 import { productsService } from './products.service';
 
-@Controller('products')
+@Controller('api/products')
 export class ProductsController {
   constructor(private readonly productsService: productsService) {}
   @Post()

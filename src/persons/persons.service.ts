@@ -21,8 +21,8 @@ export class PersonsService {
   }
 
   savePerson(createPersonDto: CreatePersonDto) {
-    const product = new this.personModel(createPersonDto);
-    return product.save();
+    const person = new this.personModel(createPersonDto);
+    return person.save();
   }
   async updatePerson(id: string, updatePersonDto: UpdatePersonDto) {
     const person = await this.personModel

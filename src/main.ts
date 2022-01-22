@@ -8,9 +8,10 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       transform: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: false,
     }),
   );
-  await app.listen(3001);
+  app.enableCors();
+  await app.listen(3000);
 }
 bootstrap();

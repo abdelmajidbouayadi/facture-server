@@ -8,5 +8,12 @@ export class CreateProductDto {
   readonly description: string;
   @IsOptional()
   @IsNumber()
-  readonly price: number;
+  readonly sellingPrice: number;
+  @IsOptional()
+  @IsNumber()
+  readonly costPrice: number;
+
+  @IsOptional()
+  @IsString()
+  readonly barcode: string;
 }
