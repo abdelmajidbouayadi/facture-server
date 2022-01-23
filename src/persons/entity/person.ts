@@ -5,6 +5,10 @@ import { Document } from 'mongoose';
 export class Person extends Document {
   @Prop()
   name: string;
+
+  @Prop()
+  companyName: string;
+
   @Prop()
   address: string;
   @Prop()
@@ -12,7 +16,17 @@ export class Person extends Document {
   @Prop()
   country: string;
   @Prop()
-  tel: string[];
+  postal: string;
+  @Prop()
+  mobilePhone: string;
+  @Prop()
+  workPhone: string;
+  @Prop()
+  email: string;
+  @Prop()
+  customer: boolean;
+  @Prop()
+  vendor: boolean;
 }
 
 export const PersonSchema = SchemaFactory.createForClass(Person);
