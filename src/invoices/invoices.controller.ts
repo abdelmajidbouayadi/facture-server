@@ -19,6 +19,10 @@ export class InvoicesController {
   getInvoices() {
     return this.invoicesService.getInvoices();
   }
+  @Get('lastnum')
+  getLastNum() {
+    return this.invoicesService.getNumOfLastInsertedInvoice();
+  }
 
   @Get(':id')
   getInvoiceById(@Param('id') id: string) {

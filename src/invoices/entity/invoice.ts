@@ -8,8 +8,22 @@ export class Invoice extends Document {
   person: Person;
 
   @Prop()
-  num: string;
+  num: number;
 
+  @Prop()
+  name: string;
+
+  @Prop()
+  address: string;
+
+  @Prop()
+  city: string;
+
+  @Prop()
+  country: string;
+
+  @Prop()
+  postal: string;
   @Prop()
   date: Date;
 
@@ -20,6 +34,8 @@ export class Invoice extends Document {
     raw({
       quantity: { type: Number },
       price: { type: Number },
+      title: { type: String },
+      description: { type: String },
       product: { type: MongooseSchema.Types.ObjectId, ref: 'Product' },
     }),
   ])

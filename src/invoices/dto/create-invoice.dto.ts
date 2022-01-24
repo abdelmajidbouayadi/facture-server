@@ -1,4 +1,4 @@
-import { IsDate, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateInvoiceDto {
   @IsOptional()
@@ -7,20 +7,40 @@ export class CreateInvoiceDto {
 
   @IsOptional()
   @IsString()
-  num: string;
+  name: string;
 
   @IsOptional()
-  @IsDate()
+  @IsString()
+  address: string;
+
+  @IsOptional()
+  @IsString()
+  city: string;
+
+  @IsOptional()
+  @IsString()
+  country: string;
+
+  @IsOptional()
+  @IsString()
+  postal: string;
+
+  @IsOptional()
+  @IsNumber()
+  num: number;
+
+  @IsOptional()
   date: Date;
 
   @IsOptional()
-  @IsDate()
   invoiceDueDate: Date;
 
   @IsOptional()
   rows: {
     quantity: number;
     price: number;
+    title: string;
+    description: string;
     product: string;
   }[];
 

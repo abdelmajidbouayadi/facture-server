@@ -46,4 +46,7 @@ export class InvoicesService {
     if (!invoice) throw new NotFoundException('invoice not found');
     return invoice.remove();
   }
+  getNumOfLastInsertedInvoice() {
+    return this.invoiceModel.findOne().sort({ num: -1 }).select('num').exec();
+  }
 }
