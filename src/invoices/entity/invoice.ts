@@ -43,6 +43,8 @@ export class Invoice extends Document {
 
   @Prop()
   note: string;
+  @Prop()
+  type: TypeInvoice;
 }
 
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
@@ -60,3 +62,8 @@ export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
 //   ],
 //   note: String,
 // });
+
+export enum TypeInvoice {
+  bill = 'bill',
+  invoice = 'invoice',
+}

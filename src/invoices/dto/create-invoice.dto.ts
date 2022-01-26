@@ -1,4 +1,5 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { TypeInvoice } from '../entity/invoice';
 
 export class CreateInvoiceDto {
   @IsOptional()
@@ -8,7 +9,8 @@ export class CreateInvoiceDto {
   @IsOptional()
   @IsString()
   name: string;
-
+  @IsEnum(TypeInvoice)
+  type: TypeInvoice;
   @IsOptional()
   @IsString()
   address: string;
