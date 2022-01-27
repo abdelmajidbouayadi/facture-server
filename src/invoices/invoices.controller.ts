@@ -23,6 +23,10 @@ export class InvoicesController {
   getLastNum() {
     return this.invoicesService.getNumOfLastInsertedInvoice();
   }
+  @Post('search')
+  getInvoiceByQuery(@Body() query: UpdateInvoiceDto) {
+    return this.invoicesService.getInvoiceByQuery(query);
+  }
 
   @Get(':id')
   getInvoiceById(@Param('id') id: string) {

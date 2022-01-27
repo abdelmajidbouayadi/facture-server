@@ -15,10 +15,6 @@ import { PaymentsService } from './payments.service';
 @Controller('api/payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
-  @Post()
-  addPayment(@Body() createPaymentDto: CreatePaymentDto) {
-    return this.paymentsService.savePayment(createPaymentDto);
-  }
 
   @Get()
   async getAllPayments(): Promise<Payment[]> {
@@ -28,6 +24,15 @@ export class PaymentsController {
   @Get(':id')
   getParams(@Param('id') id: string) {
     return this.paymentsService.getPaymentById(id);
+  }
+
+  @Post('search')
+  getPaymentByQuery(@Body() query: UpdatePaymentDto) {
+    return this.paymentsService.getAllPaymentsByQuery(query);
+  }
+  @Post()
+  addPayment(@Body() createPaymentDto: CreatePaymentDto) {
+    return this.paymentsService.savePayment(createPaymentDto);
   }
 
   @Patch(':id')

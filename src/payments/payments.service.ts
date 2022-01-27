@@ -21,13 +21,15 @@ export class PaymentsService {
       ...createPaymentDto,
     };
     const payment = new this.PaymentModel(paymentDto);
-    return payment.save();
+    return (await payment.save()).populate('person');
   }
 
   async getAllPayments(): Promise<Payment[]> {
     return this.PaymentModel.find().populate('person');
   }
-
+  async getAllPaymentsByQuery(query: UpdatePaymentDto): Promise<Payment[]> {
+    return this.PaymentModel.find(query).populate('person');
+  }
   async getPaymentById(id: string) {
     const payment = await this.PaymentModel.findById(id)
       .populate('person')

@@ -29,6 +29,12 @@ export class InvoicesService {
       throw new NotFoundException(`the product with id=${id} not Found`);
     return invoice;
   }
+  async getInvoiceByQuery(query: UpdateInvoiceDto) {
+    return this.invoiceModel
+      .find(query)
+      .populate([{ path: 'rows.product' }])
+      .exec();
+  }
 
   saveInvoice(createInvoiceDto: CreateInvoiceDto) {
     const invoice = new this.invoiceModel(createInvoiceDto);
@@ -46,6 +52,7 @@ export class InvoicesService {
     if (!invoice) throw new NotFoundException('invoice not found');
     return invoice.remove();
   }
+
   getNumOfLastInsertedInvoice() {
     return this.invoiceModel.findOne().sort({ num: -1 }).select('num').exec();
   }
