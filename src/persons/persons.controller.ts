@@ -23,6 +23,10 @@ export class PersonsController {
   getPersonById(@Param('id') id: string) {
     return this.personsService.getPersonById(id);
   }
+  @Get('type/:type')
+  getPersonByType(@Param('type') type: string) {
+    return this.personsService.getPersonByType(type);
+  }
   @Post()
   savePerson(@Body() createPersonDto: CreatePersonDto) {
     return this.personsService.savePerson(createPersonDto);

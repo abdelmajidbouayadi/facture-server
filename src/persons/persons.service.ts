@@ -19,6 +19,12 @@ export class PersonsService {
       throw new NotFoundException(`the product with id=${id} not Found`);
     return person;
   }
+  getPersonByType(type: string) {
+    if (type === 'customer')
+      return this.personModel.find({ customer: true }).exec();
+    if (type === 'vendor')
+      return this.personModel.find({ vendor: true }).exec();
+  }
 
   savePerson(createPersonDto: CreatePersonDto) {
     const person = new this.personModel(createPersonDto);
