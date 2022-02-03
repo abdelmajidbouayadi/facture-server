@@ -1,0 +1,21 @@
+Authentication nestjs
+(you can read the documentation )
+
+
+1/first learn the documentation in nestjs about security 
+2/watch this  youtube https://www.youtube.com/watch?v=_L225zpUK0M&ab_channel=MariusEspejo
+
+
+I use Authentication in nestjs:
+
+ We'll start with the first requirement: authenticating a user.
+ We'll then extend that by issuing a JWT.
+ Finally, we'll create a protected route that checks for a valid JWT on the request.
+
+ 1/First we need to install the required packages. Passport provides a strategy called passport-local that implements a username/password authentication mechanism, which suits our needs for this portion of our use case.
+ $ npm install --save @nestjs/passport passport passport-local 
+         //we use strategy passport-local if you use 
+         //if you use other strategy declare it    
+ $ npm install --save-dev @types/passport-local // this provides assistance while writing TypeScript code.
+
+

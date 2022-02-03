@@ -1,11 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Person } from 'src/persons/entity/person';
-import { Product } from 'src/products/entity/product.model';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
-import { Invoice } from './entity/invoice';
+import { Invoice, TypeInvoice } from './entity/invoice';
 
 @Injectable()
 export class InvoicesService {
@@ -19,12 +17,15 @@ export class InvoicesService {
       .populate([{ path: 'person' }, { path: 'rows.product' }])
       .exec();
   }
-
-  async getInvoiceById(id: string) {
-    const invoice = await this.invoiceModel
-      .findById(id)
+  getInvoicesByType(type: TypeInvoice) {
+    return this.invoiceModel
+      .find({ type })
       .populate([{ path: 'person' }, { path: 'rows.product' }])
       .exec();
+  }
+
+  async getInvoiceById(id: string) {
+    const invoice = await this.invoiceModel.findById(id).exec();
     if (!invoice)
       throw new NotFoundException(`the product with id=${id} not Found`);
     return invoice;
@@ -53,7 +54,11 @@ export class InvoicesService {
     return invoice.remove();
   }
 
-  getNumOfLastInsertedInvoice() {
-    return this.invoiceModel.findOne().sort({ num: -1 }).select('num').exec();
+  async getNumOfLastInsertedInvoice(type: TypeInvoice) {
+    const invoice = await this.invoiceModel
+      .findOne({ type })
+      .sort({ num: -1 })
+      .select('num');
+    return invoice?.num ? invoice.num : 0;
   }
 }

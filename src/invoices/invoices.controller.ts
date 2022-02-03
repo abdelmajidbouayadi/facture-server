@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
+import { TypeInvoice } from './entity/invoice';
 import { InvoicesService } from './invoices.service';
 
 @Controller('api/invoices')
@@ -19,15 +20,18 @@ export class InvoicesController {
   getInvoices() {
     return this.invoicesService.getInvoices();
   }
-  @Get('lastnum')
-  getLastNum() {
-    return this.invoicesService.getNumOfLastInsertedInvoice();
+  @Get('lastnum/type/:type')
+  getLastNum(@Param('type') type: TypeInvoice) {
+    return this.invoicesService.getNumOfLastInsertedInvoice(type);
   }
   @Post('search')
   getInvoiceByQuery(@Body() query: UpdateInvoiceDto) {
     return this.invoicesService.getInvoiceByQuery(query);
   }
-
+  @Get('type/:type')
+  getPersonByType(@Param('type') type: TypeInvoice) {
+    return this.invoicesService.getInvoicesByType(type);
+  }
   @Get(':id')
   getInvoiceById(@Param('id') id: string) {
     return this.invoicesService.getInvoiceById(id);

@@ -15,7 +15,6 @@ import { PaymentsService } from './payments.service';
 @Controller('api/payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
-
   @Get()
   async getAllPayments(): Promise<Payment[]> {
     return this.paymentsService.getAllPayments();
