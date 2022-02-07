@@ -26,7 +26,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   validityToken(context: ExecutionContext) {
     const request: Request = context.switchToHttp().getRequest();
-    if (request.url.includes('api')) {
+    if (request.url.includes('api/')) {
       const token = request.headers.authorization?.replace('Bearer ', '');
       let service = new JwtService({});
       if (!token) throw  new UnauthorizedException();
