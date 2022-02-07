@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { ApiKeyGuard } from './comun/guards/api-key.guard';
 
 async function bootstrap() {
@@ -14,6 +15,7 @@ async function bootstrap() {
   );
   app.enableCors();
   // app.useGlobalGuards(new ApiKeyGuard());
+  // app.useGlobalGuards(new JwtAuthGuard());
   await app.listen(3000);
 }
 bootstrap();

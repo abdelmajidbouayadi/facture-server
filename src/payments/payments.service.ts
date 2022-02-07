@@ -43,7 +43,7 @@ export class PaymentsService {
       id,
       updatePaymentDto,
       { new: true },
-    ).exec();
+    ).populate('person').exec();
     if (!payment) throw new NotFoundException('not found payment');
 
     return payment;

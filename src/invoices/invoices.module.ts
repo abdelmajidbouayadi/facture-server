@@ -19,11 +19,11 @@ import { InvoicesService } from './invoices.service';
   ],
   controllers: [InvoicesController],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
     InvoicesService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
   ],
 })
 export class InvoicesModule {}
